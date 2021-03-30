@@ -1,4 +1,4 @@
-package week01;
+package week01.array;
 public class MoveZeroes{
     public static void main(String[] args) {
         Solution solution = new MoveZeroes().new Solution();

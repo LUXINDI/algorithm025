@@ -1,4 +1,4 @@
-package week01;
+package week01.array;
 
 //反转一个单链表。
 //
