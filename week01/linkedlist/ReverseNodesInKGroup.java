@@ -76,7 +76,7 @@ public class ReverseNodesInKGroup{
         // head -> nk -> ... -> n1 -> nk+1
         private ListNode reverse(ListNode head, int k){
             ListNode nk = head;
-            // find kth node
+            // 如果不足k个
             for(int i=1;i<=k;i++){
                 nk = nk.next;
                 if(nk==null) return null;
@@ -97,8 +97,8 @@ public class ReverseNodesInKGroup{
             // reconnect
             // head -> nk ->nk-1 -> ... -> n1 -> nk+1
             ListNode n1 = head.next;
-            head.next = prev;
-            n1.next = cur;
+            head.next = nk;
+            n1.next = nkplus;
             return n1;
         }
     }
