@@ -53,6 +53,7 @@ public class LargestRectangleInHistogram{
             for (int i=0;i<newH.length;i++){
                 // deque.peekFirst 与 stack.peek对应
                 if(i>=1) System.out.println(newH[stack.peekFirst()]);
+                // 注意是新的元素小于栈顶元素的时候，需要弹出栈顶元素，计算面积
                 while (!stack.isEmpty() && newH[i] < newH[stack.peekFirst()]) {
                     int top = stack.pollFirst(); // 出栈元素
                     int right = i - 1; // 入栈元素：右边界
