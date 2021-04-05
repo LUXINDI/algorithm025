@@ -81,6 +81,28 @@ public class TrappingRainWater{
             }
             return res;
         }
+
+        public int trap3(int[] height) {
+            //双指针
+            if(height.length<=2) return 0;
+            int res = 0;
+            int left = 1;
+            int right = height.length-2;
+            int maxLeft = height[0]; //记录左指针左边的最大值
+            int maxRight = height[height.length-1]; //记录右指针右边的最大值
+            while(left<=right){
+                if(maxLeft<maxRight){
+                    res += Math.max(maxLeft-height[left],0);
+                    maxLeft = Math.max(maxLeft, height[left]);
+                    left++;
+                }else{
+                    res += Math.max(maxRight-height[right],0);
+                    maxRight = Math.max(maxRight, height[right]);
+                    right--;
+                }
+            }
+            return res;
+        }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
