@@ -68,8 +68,10 @@ import java.util.LinkedList;
 public class SlidingWindowMaximum {
     public int[] maxSlidingWindow(int[] nums, int k) {
         Deque<Integer> deque = new LinkedList<>();
+        //注意res的长度
         int[] res = new int[nums.length-k+1];
         // 初始化一个单调递减栈
+        //从队尾依次弹出
         for(int j=0;j<k;j++){
             while(!deque.isEmpty()&& nums[j]>deque.peekLast()){
                 deque.pollLast();
