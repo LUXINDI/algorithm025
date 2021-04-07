@@ -28,10 +28,7 @@ package week02.map;
 // Related Topics 堆 哈希表
 // 👍 713 👎 0
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TopKFrequentElements{
     public static void main(String[] args) {
@@ -39,6 +36,7 @@ public class TopKFrequentElements{
     }
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        //hashMap
         public int[] topKFrequent(int[] nums, int k) {
             //首先对于nums中数字计数
             Map<Integer, Integer> freq = getFreq(nums);
@@ -71,6 +69,62 @@ public class TopKFrequentElements{
                 map.put(num, map.getOrDefault(num,0)+1);
             }
             return map;
+        }
+
+        // minheap
+        public int[] topKFrequent2(int[] nums, int k) {
+            Map<Integer, Integer> occur = getFreq(nums);
+            //注意heap的构造
+            PriorityQueue<int[]> minHeap = new PriorityQueue<>(
+                    new Comparator<int[]>() {
+                        @Override
+                        public int compare(int[] o1, int[] o2) {
+                            return o1[1] - o2[1];
+                        }
+                    }
+            );
+            for(Map.Entry<Integer, Integer> entry : occur.entrySet()){
+                int num = entry.getKey();
+                int cnt = entry.getValue();
+                //注意是小于k
+                if(minHeap.size()<k){
+                    minHeap.offer(new int[]{num, cnt});
+                }else{
+                    if(minHeap.peek()[1]<cnt){
+                        minHeap.offer(new int[]{num, cnt});
+                        minHeap.poll();
+                    }
+                }
+            }
+            int[] res = new int[k];
+            for(int i=0;i<k;i++){
+                res[i] = minHeap.poll()[0];
+            }
+            return res;
+        }
+
+        // maxheap
+        public int[] topKFrequent3(int[] nums, int k) {
+            Map<Integer, Integer> occur = getFreq(nums);
+            //注意heap的构造
+            PriorityQueue<int[]> maxHeap = new PriorityQueue<>(k,
+                    new Comparator<int[]>() {
+                        @Override
+                        public int compare(int[] o1, int[] o2) {
+                            return  o2[1] -o1[1];
+                        }
+                    }
+            );
+            for(Map.Entry<Integer, Integer> entry : occur.entrySet()){
+                int num = entry.getKey();
+                int cnt = entry.getValue();
+                maxHeap.offer(new int[]{num,cnt});
+            }
+            int[] res = new int[k];
+            for(int i=0;i<k;i++){
+                res[i] = maxHeap.poll()[0];
+            }
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
